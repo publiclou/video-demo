@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { FC, useEffect, useRef, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import Pagination from '../../Components/Pagination/Pagination'
 import VideoList from '../../Components/VideoList/VideoList'
 import style from './Home.module.scss'
@@ -61,15 +61,12 @@ const Home: FC = () => {
 
   }, [videos.length])
 
-  console.log(videos)
-
-
   return (
     <div className={style['home']}>
       {/* video list area */}
       <VideoList list={currentVideoList} title="首頁" />
 
-
+      {/* Page */}
       <Pagination itemLength={videos.length}
         itemMaxPerPage={itemMaxPerPage}
         currentPage={currentPage}
