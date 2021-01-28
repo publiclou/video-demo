@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { FC, useEffect, useState } from 'react'
+import Page from '../../Components/Pages/Pages'
 
 const Home: FC = () => {
   const [videos, setVideos] = useState<Object[]>([])
@@ -44,7 +45,7 @@ const Home: FC = () => {
 
   return (
     <div>
-      llll
+      <Page />
     </div>
   )
 }
