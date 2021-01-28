@@ -1,6 +1,8 @@
 import axios from 'axios'
 import React, { FC, useEffect, useState } from 'react'
-import Page from '../../Components/Pages/Pages'
+import Pagination from '../../Components/Pagination/Pagination'
+import VideoList from '../../Components/VideoList/VideoList'
+import style from './Home.module.scss'
 
 const Home: FC = () => {
   const [videos, setVideos] = useState<Object[]>([])
@@ -28,24 +30,28 @@ const Home: FC = () => {
   }
 
   useEffect(() => {
-    const fetchData = async () => {
-      let items: object[] = [...videos]
-      let pageToken: any = null
+    // const fetchData = async () => {
+    //   let items: object[] = [...videos]
+    //   let pageToken: any = null
 
-      while (items.length < itemMax) {
-        let data = await getVideoData(pageToken)
-        items = items.concat(data.data.items)
-        pageToken = data.data.nextPageToken
-      }
-      setVideos(items)
-    }
-    fetchData()
+    //   while (items.length < itemMax) {
+    //     let data = await getVideoData(pageToken)
+    //     items = items.concat(data.data.items)
+    //     pageToken = data.data.nextPageToken
+    //   }
+    //   setVideos(items)
+    // }
+    // fetchData()
   }, [])
 
 
   return (
-    <div>
-      <Page />
+    <div className={style['home']}>
+      {/* video list area */}
+      <VideoList />
+
+
+      <Pagination />
     </div>
   )
 }
