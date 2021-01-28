@@ -1,8 +1,11 @@
 import React, { FC } from 'react'
+import Player from '../../Components/VideoPlayer/VideoPlayer'
 
 const Video: FC = () => {
   return (
-    <div>Vido</div>
+    <div>
+      <Player />
+    </div>
   )
 }
 
