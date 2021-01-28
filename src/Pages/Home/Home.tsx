@@ -11,7 +11,7 @@ const Home: FC = () => {
 
   const videoApiResultMax: number = 50
   const itemMax: number = 100
-  const pageItemMax: number = 12
+  const itemMaxPerPage: number = 12
 
   const getVideoData = (page: string | null = null): Promise<any> => {
     return new Promise((resolve, reject) => {
@@ -44,14 +44,14 @@ const Home: FC = () => {
     setVideos(items)
   }
 
-  const onChangePage = (page: number = 1): void => {
+  function onChangePage(page: number = 1): void {
     let videoList: object[] = []
 
     // Set current page
     setCurrentPage(page)
 
     // Set videoList
-    videoList = videos.slice((page - 1) * pageItemMax, page * pageItemMax)
+    videoList = videos.slice((page - 1) * itemMaxPerPage, page * itemMaxPerPage)
     setCurrentVideoList(videoList)
   }
 
@@ -70,7 +70,10 @@ const Home: FC = () => {
       <VideoList list={currentVideoList} title="首頁" />
 
 
-      <Pagination />
+      <Pagination itemLength={videos.length}
+        itemMaxPerPage={itemMaxPerPage}
+        currentPage={currentPage}
+        onChagePage={(index: number) => onChangePage(index)} />
     </div>
   )
 }
