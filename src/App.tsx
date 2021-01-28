@@ -14,7 +14,7 @@ function App() {
         <Header />
 
         <Switch>
-          <Route exact path="/"><Home text="hello" /></Route>
+          <Route exact path="/"><Home /></Route>
           <Route exact path="/collection" component={Collection}></Route>
           <Route exact path="/video" component={Video}></Route>
         </Switch>
