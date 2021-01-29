@@ -40,7 +40,7 @@ const Pagination: FC<typeProps> = (props: typeProps) => {
 
     for (let i = 1; i <= totalPage; i++) {
       page.push(
-        <div className={i == props.currentPage ? style['page-button-active'] : style['page-button']}
+        <div className={i === props.currentPage ? style['page-button-active'] : style['page-button']}
           key={`page-${i}`}
           onClick={() => onClickPage(i)}>
           {i}

@@ -1,7 +1,8 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import style from './VideoInfoCard.module.scss'
 
 interface Idata {
+  id: string
   duration: string
   thumbnail: string
   title: string
@@ -11,6 +12,41 @@ interface Idata {
 type time = string | null
 
 const VideoInfoCard: FC<Idata> = (props: Idata) => {
+  const [isCollect, setIsCollect] = useState<boolean>(false)
+
+
+  useEffect(() => {
+    let collectionList = sessionStorage.getItem('collection')
+    let list: string[] = []
+
+    if (collectionList) {
+      list = collectionList.split(',')
+    }
+
+    list.includes(props.id) ? setIsCollect(true) : setIsCollect(false)
+  }, [])
+
+  function onClickVideoInfoCard(e: any): void {
+    console.log('on click video card')
+  }
+
+  function onClickCollection(e: any): void {
+    e.stopPropagation()
+    let list: string[] | undefined = sessionStorage.getItem('collection')?.split(',')
+
+    isCollect ? setIsCollect(false) : setIsCollect(true)
+
+    if (isCollect && list) {
+      list = list.filter(ele => ele !== props.id)
+    } else {
+      list = list ? [...list, props.id] : [props.id]
+    }
+
+    if (list) {
+      sessionStorage.setItem('collection', list.join(','))
+    }
+  }
+
   //  ISO 8601 format to timestring
   const videoLengthFormat = (duration: string): time => {
     let reptms: RegExp = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
@@ -31,10 +67,15 @@ const VideoInfoCard: FC<Idata> = (props: Idata) => {
     return '00:00'
   }
 
+  const Collection = isCollect ? "\u2665" : "\u2661"
+
   return (
-    <div className={style['video-info-card']}>
+    <div className={style['video-info-card']} onClick={(e) => onClickVideoInfoCard(e)}>
       <div className={style['info-top']}>
-        <img className={style['thumbnail']} src={props.thumbnail} />
+        <div className={style['collection']} onClick={(e) => onClickCollection(e)}>
+          {Collection}
+        </div>
+        <img className={style['thumbnail']} src={props.thumbnail} alt='' />
         <div className={style['video-length']}>{videoLengthFormat(props.duration)}</div>
       </div>
 

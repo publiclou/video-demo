@@ -11,6 +11,7 @@ const VideoList: FC<Iprops> = (props: Iprops) => {
   const VideoInfoCards = props.list.map((ele: any) => {
     return (
       <VideoInfoCard key={ele.id}
+        id={ele.id}
         duration={ele.contentDetails.duration}
         thumbnail={ele.snippet.thumbnails.medium.url}
         title={ele.snippet.title}
