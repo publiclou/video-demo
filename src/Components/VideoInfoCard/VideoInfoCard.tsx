@@ -14,7 +14,6 @@ type time = string | null
 const VideoInfoCard: FC<Idata> = (props: Idata) => {
   const [isCollect, setIsCollect] = useState<boolean>(false)
 
-
   useEffect(() => {
     let collectionList = sessionStorage.getItem('collection')
     let list: string[] = []

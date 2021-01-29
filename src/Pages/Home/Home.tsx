@@ -13,6 +13,11 @@ const Home: FC = () => {
   const itemMax: number = 100
   const itemMaxPerPage: number = 12
 
+  useEffect(() => {
+    fetchData()
+    onChangePage(1)
+  }, [videos.length])
+
   const getVideoData = (page: string | null = null): Promise<any> => {
     return new Promise((resolve, reject) => {
       axios.get(`${process.env.REACT_APP_YOUTUBE_API_URL}/videos`, {
@@ -54,12 +59,6 @@ const Home: FC = () => {
     videoList = videos.slice((page - 1) * itemMaxPerPage, page * itemMaxPerPage)
     setCurrentVideoList(videoList)
   }
-
-  useEffect(() => {
-    fetchData()
-    onChangePage(1)
-
-  }, [videos.length])
 
   return (
     <div className={style['home']}>

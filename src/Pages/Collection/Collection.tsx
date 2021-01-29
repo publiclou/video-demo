@@ -8,6 +8,15 @@ const Collection: FC = () => {
   const videoApiResultMax: number = 50
   const collection = sessionStorage.getItem('collection')
 
+  useEffect(() => {
+    fetchData()
+  }, [videos.length])
+
+  const fetchData = async () => {
+    let data = await getVideoData()
+    setVideos(data.data.items)
+  }
+
   const getVideoData = (page: string | null = null): Promise<any> => {
     return new Promise((resolve, reject) => {
       axios.get(`${process.env.REACT_APP_YOUTUBE_API_URL}/videos`, {
@@ -18,22 +27,12 @@ const Collection: FC = () => {
           key: process.env.REACT_APP_YOUTUBE_API_KEY,
         }
       }).then(res => {
-        console.log(res)
         resolve(res)
       }).catch(err => {
         reject(err)
       })
     })
   }
-
-  const fetchData = async () => {
-    let data = await getVideoData()
-    setVideos(data.data.items)
-  }
-
-  useEffect(() => {
-    fetchData()
-  }, [videos.length])
 
   return (
     <div className={style['collection']}>

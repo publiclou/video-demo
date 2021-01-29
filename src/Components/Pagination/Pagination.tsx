@@ -11,6 +11,14 @@ interface typeProps {
 const Pagination: FC<typeProps> = (props: typeProps) => {
   const [totalPage, setTotalPage] = useState<number>(1)
 
+  useEffect(() => {
+    let total: number = props.itemLength / props.itemMaxPerPage
+    if (props.itemLength % props.itemMaxPerPage !== 0) {
+      total = total + 1
+    }
+    setTotalPage(total)
+  }, [props.itemLength])
+
   function onClickPage(index: number): void {
     props.onChagePage(index)
   }
@@ -26,14 +34,6 @@ const Pagination: FC<typeProps> = (props: typeProps) => {
       props.onChagePage(props.currentPage + 1)
     }
   }
-
-  useEffect(() => {
-    let total: number = props.itemLength / props.itemMaxPerPage
-    if (props.itemLength % props.itemMaxPerPage !== 0) {
-      total = total + 1
-    }
-    setTotalPage(total)
-  }, [props.itemLength])
 
   const createPageButton = () => {
     let page: any = []
