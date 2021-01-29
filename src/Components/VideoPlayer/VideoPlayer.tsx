@@ -17,9 +17,13 @@ const VideoPlayer: FC<Iprops> = (props: Iprops) => {
       autoplay: true,
       muted: true,
       controls: true,
+      inactivityTimeout: 0
     }, () => {
       video.src(props.src);
     });
+
+    // Custom controlbar
+    video.controlBar.addClass(style['custom-control-bar'])
 
     // video eventLisenter
     video.on('pause', () => onPlayPauseVideo(false))
