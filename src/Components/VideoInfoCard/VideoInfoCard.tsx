@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
 import style from './VideoInfoCard.module.scss'
+import { useHistory } from 'react-router-dom';
 
 interface Idata {
   id: string
@@ -13,6 +14,7 @@ type time = string | null
 
 const VideoInfoCard: FC<Idata> = (props: Idata) => {
   const [isCollect, setIsCollect] = useState<boolean>(false)
+  const history = useHistory()
 
   useEffect(() => {
     let collectionList = sessionStorage.getItem('collection')
@@ -26,7 +28,7 @@ const VideoInfoCard: FC<Idata> = (props: Idata) => {
   }, [])
 
   function onClickVideoInfoCard(e: any): void {
-    console.log('on click video card')
+    history.push('/video')
   }
 
   function onClickCollection(e: any): void {
