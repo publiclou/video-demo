@@ -18,7 +18,7 @@ const Home: FC = () => {
     onChangePage(1)
   }, [videos.length])
 
-  const getVideoData = (page: string | null = null): Promise<any> => {
+  const getVideoData = (page: string | null = null): Promise<any> | null => {
     return new Promise((resolve, reject) => {
       axios.get(`${process.env.REACT_APP_YOUTUBE_API_URL}/videos`, {
         params: {
@@ -42,10 +42,13 @@ const Home: FC = () => {
       return null
     }
 
-    let pageToken: any = null
-    let data = await getVideoData(pageToken)
-    items = items.concat(data.data.items)
-    pageToken = data.data.nextPageToken
+    while (items.length < itemMax) {
+      let pageToken: any = null
+      let data = await getVideoData(pageToken)
+      items = items.concat(data.data.items)
+      pageToken = data.data.nextPageToken
+    }
+
     setVideos(items)
   }
 

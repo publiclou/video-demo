@@ -9,7 +9,9 @@ const Collection: FC = () => {
   const collection = sessionStorage.getItem('collection')
 
   useEffect(() => {
-    fetchData()
+    if (collection && collection !== '') {
+      fetchData()
+    }
   }, [videos.length])
 
   const fetchData = async () => {
