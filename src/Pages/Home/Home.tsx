@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { FC, useEffect, useState } from 'react'
 import Pagination from '../../Components/Pagination/Pagination'
 import VideoList from '../../Components/VideoList/VideoList'
+import Loader from '../../Components/Loader/Loader'
 import style from './Home.module.scss'
 
 const Home: FC = () => {
@@ -63,10 +64,13 @@ const Home: FC = () => {
     setCurrentVideoList(videoList)
   }
 
+  const Content = currentVideoList.length > 0 ?
+    <VideoList list={currentVideoList} title="首頁" /> : <Loader />
+
   return (
     <div className={style['home']}>
       {/* video list area */}
-      <VideoList list={currentVideoList} title="首頁" />
+      {Content}
 
       {/* Page */}
       <Pagination itemLength={videos.length}
